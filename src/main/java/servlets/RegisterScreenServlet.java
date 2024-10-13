@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import storage.RegistrationRepo;
 
 public class RegisterScreenServlet extends HttpServlet {
+
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     response.setContentType("text/html");
