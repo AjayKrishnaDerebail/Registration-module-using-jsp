@@ -14,7 +14,7 @@
                             <h2 class="center-align">Register here</h2>
                         </div>
                         <div class="form center-align">
-                            <form action="register" method="post">
+                            <form action="submitRegistrationDetails" method="post">
                                 <input type = "text" name="userName" placeholder="Enter your name"/>
                                 <input type = "password" name="password" placeholder="Enter your password"/>
                                 <input type = "email" name="email" placeholder="Enter your email"/>

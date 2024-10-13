@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import storage.RegistrationRepo;
 
-public class RegisterServlet extends HttpServlet {
+public class RegisterScreenServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     response.setContentType("text/html");
