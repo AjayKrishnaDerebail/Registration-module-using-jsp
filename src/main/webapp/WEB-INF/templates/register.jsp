@@ -14,7 +14,7 @@
                             <h2 class="center-align">Register here</h2>
                         </div>
                         <div class="form center-align">
-                            <form action="submitRegistrationDetails" method="post">
+                            <form action="submitRegistrationDetails" id="registrationForm" method="post">
                                 <input type = "text" name="userName" placeholder="Enter your name"/>
                                 <input type = "password" name="password" placeholder="Enter your password"/>
                                 <input type = "email" name="email" placeholder="Enter your email"/>
@@ -47,9 +47,30 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
         crossorigin="anonymous"></script>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function() {
                 console.log("Page is ready!");
-            })
+
+                $("#registrationForm").on("submit", function(event) {
+                    event.preventDefault();
+                    // Serializes into string with key-value pairs
+                    var f = $(this).serialize();
+                    console.log(f);
+
+                    $.ajax({
+                        url: "submitRegistrationDetails",
+                        data: f,
+                        type: "POST",
+                        success: function(data, textStatus, jqXHR) {
+                            console.log(data);
+                            console.log("success .....");
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.responseText); // Corrected to log the error response
+                            console.log("error .....");
+                        }
+                    });
+                });
+            });
         </script>
     </body>
 </html>
