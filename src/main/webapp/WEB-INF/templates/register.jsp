@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-content">
                             <h2 class="center-align">Register here</h2>
-                            <h5 id="success-msg"></h5>
+                            <h5 id="success-msg" class="center-align"></h5>
                         </div>
                         <div class="form center-align">
                             <form action="submitRegistrationDetails" id="registrationForm" method="post">
@@ -66,13 +66,20 @@
                         type: "POST",
                         success: function(data, textStatus, jqXHR) {
                             console.log(data);
-                            console.log("success .....");
+                            console.log("Inside success Ajax method");
                             $(".loader").hide();
                             $(".form").show();
+                            if(data.trim() === 'success'){
+                                $('#success-msg').html("Successfully registered");
+                                $('#success-msg').addClass('green-text');
+                            }else{
+                                $('#success-msg').html("Something went wrong try again");
+                                $('#success-msg').addClass('red-text');
+                            }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(jqXHR.responseText); // Corrected to log the error response
-                            console.log("error .....");
+                            console.log("Inside error Ajax method");
                             $(".loader").hide();
                             $(".form").show();
                         }

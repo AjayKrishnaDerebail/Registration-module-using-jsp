@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class RegistrationRepo {
-  public static void setUserValuesInDb(String name, String password, String email) {
+  public int setUserValuesInDb(String name, String password, String email) {
     System.out.println("Hello world!");
     try (Connection conn = ConnectionProvider.getConnection()) {
 
@@ -17,6 +17,7 @@ public class RegistrationRepo {
         insertStatement.setString(3, email);
 
         insertStatement.executeUpdate();
+        return 1;
       } catch (SQLException ie) {
         System.out.println(ie.getMessage());
       }
@@ -26,5 +27,6 @@ public class RegistrationRepo {
       System.out.println("Should never come here !");
       throw new RuntimeException(e);
     }
+    return 0;
   }
 }
