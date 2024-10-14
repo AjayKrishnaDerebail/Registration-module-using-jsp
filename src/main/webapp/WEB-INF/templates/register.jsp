@@ -12,6 +12,7 @@
                     <div class="card">
                         <div class="card-content">
                             <h2 class="center-align">Register here</h2>
+                            <h5 id="success-msg"></h5>
                         </div>
                         <div class="form center-align">
                             <form action="submitRegistrationDetails" id="registrationForm" method="post">
@@ -56,6 +57,9 @@
                     var f = $(this).serialize();
                     console.log(f);
 
+                    $(".loader").show();
+                    $(".form").hide();
+
                     $.ajax({
                         url: "submitRegistrationDetails",
                         data: f,
@@ -63,10 +67,14 @@
                         success: function(data, textStatus, jqXHR) {
                             console.log(data);
                             console.log("success .....");
+                            $(".loader").hide();
+                            $(".form").show();
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(jqXHR.responseText); // Corrected to log the error response
                             console.log("error .....");
+                            $(".loader").hide();
+                            $(".form").show();
                         }
                     });
                 });

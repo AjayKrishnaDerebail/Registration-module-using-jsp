@@ -31,12 +31,15 @@ public class RegisterScreenServlet extends HttpServlet {
       out.println(email);
 
       try {
+        Thread.sleep(3000);
         RegistrationRepo.setUserValuesInDb(name, password, email);
       } catch (RuntimeException e) {
         System.out.println("Error in setting values" + e.getMessage());
+      } catch (InterruptedException e) {
+          throw new RuntimeException(e);
       }
 
-      out.println("</body>");
+        out.println("</body>");
       out.println("<html>");
     }
 
