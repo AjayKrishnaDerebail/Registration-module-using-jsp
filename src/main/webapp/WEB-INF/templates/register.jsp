@@ -19,6 +19,15 @@
                                 <input type = "text" name="userName" placeholder="Enter your name"/>
                                 <input type = "password" name="password" placeholder="Enter your password"/>
                                 <input type = "email" name="email" placeholder="Enter your email"/>
+                                <div class="file-field input-field">
+                                    <div class="btn blue">
+                                        <span>File</span>
+                                        <input name="file" type="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
                                 <button type = "submit" class="btn red">Submit</button>
                             </form>
                         </div>
@@ -54,7 +63,10 @@
                 $("#registrationForm").on("submit", function(event) {
                     event.preventDefault();
                     // Serializes into string with key-value pairs
-                    var f = $(this).serialize();
+                    //var f = $(this).serialize();
+                    // In case of normal text data it works , doesnt work for files,images
+
+                    let f = new FormData(this);
                     console.log(f);
 
                     $(".loader").show();
@@ -69,7 +81,7 @@
                             console.log("Inside success Ajax method");
                             $(".loader").hide();
                             $(".form").show();
-                            if(data.trim() === 'success'){
+                            if(data.trim().includes('success')){
                                 $('#success-msg').html("Successfully registered");
                                 $('#success-msg').addClass('green-text');
                             }else{
@@ -82,7 +94,23 @@
                             console.log("Inside error Ajax method");
                             $(".loader").hide();
                             $(".form").show();
-                        }
+                        },
+                        processData : false,
+                        contentType : false
+                        /*
+                        processData: false:
+                        By default, jQuery will convert data objects into a query string format
+                        (application/x-www-form-urlencoded) before sending them to the server.
+                        Setting processData to false prevents this automatic processing.
+                        This is useful when you are sending FormData objects (e.g., when uploading files)
+                        because you want to send the data as-is without any transformation.
+                        contentType: false:
+                        The contentType option specifies the content type of the data being sent to the server.
+                        When set to false, jQuery will not set any Content-Type header.
+                        This allows the browser to automatically set the correct Content-Type based on the data
+                        being sent, which is particularly important when sending FormData that includes files.
+                        The browser will set it to multipart/form-data along with the appropriate boundary.
+                        */
                     });
                 });
             });

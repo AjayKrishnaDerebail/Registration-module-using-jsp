@@ -5,16 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class RegistrationRepo {
-  public int setUserValuesInDb(String name, String password, String email) {
+  public int setUserValuesInDb(String name, String password, String email, String file) {
     System.out.println("Hello world!");
     try (Connection conn = ConnectionProvider.getConnection()) {
 
-      String insertQuery = "INSERT INTO registration_module(name,password,email) values(?,?,?)";
+      String insertQuery = "INSERT INTO registration_module(name,password,email,file) values(?,?,?,?)";
 
       try (PreparedStatement insertStatement = conn.prepareStatement(insertQuery)) {
         insertStatement.setString(1, name);
         insertStatement.setString(2, password);
         insertStatement.setString(3, email);
+        insertStatement.setString(4,file);
 
         insertStatement.executeUpdate();
         return 1;
