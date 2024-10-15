@@ -5,7 +5,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <title>Registration-module</title>
     </head>
-    <body style="background: url('<%= request.getContextPath() %>/images/VQC.jpg'); background-size:cover; background-attachment:fixed; ">
+    <body style="background: url('<%= request.getContextPath() %>/images/bg.jpg'); background-size:cover; background-attachment:fixed; ">
         <div class="container">
             <div class="row">
                 <div class="col m6 offset-m3">
