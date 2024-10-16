@@ -31,40 +31,71 @@ public class RegisterScreenServlet extends HttpServlet {
       String fileName = file.getSubmittedFileName();
       out.println(fileName);
       try {
+        // Pause execution for 3 seconds
         Thread.sleep(3000);
+
         RegistrationRepo registrationRepo = new RegistrationRepo();
         int result = registrationRepo.setUserValuesInDb(name, password, email, fileName);
+
         if (result == 1) {
           out.println("success");
-          InputStream inputStream = file.getInputStream();
-          byte[] data = new byte[inputStream.available()];
-          try {
-            int bytes = inputStream.read(data); // throws IOException
-            if (bytes > 0) {
-              String path =
-                  request.getServletContext().getRealPath("/")
-                      + "images"
-                      + File.separator
-                      + fileName;
-              System.out.println(path);
-              try (FileOutputStream fileOutputStream = new FileOutputStream(path)) {
-                fileOutputStream.write(data);
-              } catch (Exception e) {
-                System.out.println(
-                    "Something went wrong while writing data to fileOutputStream" + e);
-              }
-            } else {
-              System.out.println("No data to read");
-            }
-          } catch (IOException ie) {
-            System.out.println("Io exception caught" + ie);
-          }
+
+          // Process the file upload
+          handleFileUpload(request, file, fileName);
+
         } else {
           out.println("failure");
         }
+
       } catch (InterruptedException e) {
-        throw new RuntimeException(e);
+        throw new RuntimeException("Thread was interrupted", e);
       }
+    }
+  }
+
+  /**
+   * Handles the file upload process.
+   *
+   * @param request  the HttpServletRequest object
+   * @param file     the Part object representing the uploaded file
+   * @param fileName the name of the file to be saved
+   */
+  private void handleFileUpload(HttpServletRequest request, Part file, String fileName) {
+    try {
+      InputStream inputStream = file.getInputStream();
+      byte[] data = new byte[inputStream.available()];
+
+      int bytesRead = inputStream.read(data);
+      if (bytesRead > 0) {
+        // Define the path for the uploaded file
+        String path = request.getServletContext().getRealPath("/")
+                + "images"
+                + File.separator
+                + fileName;
+
+        System.out.println("Saving file to: " + path);
+        saveFile(path, data);
+      } else {
+        System.out.println("No data to read from the uploaded file");
+      }
+    } catch (IOException e) {
+      System.out.println("IOException occurred while reading file input stream: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Saves the uploaded file to the specified path.
+   *
+   * @param path the path where the file will be saved
+   * @param data the byte array containing the file data
+   */
+
+  private void saveFile(String path, byte[] data) {
+    try (FileOutputStream fileOutputStream = new FileOutputStream(path)) {
+      fileOutputStream.write(data);
+      System.out.println("File saved successfully");
+    } catch (IOException e) {
+      System.out.println("Failed to write data to file: " + e.getMessage());
     }
   }
 }
