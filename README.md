@@ -16,7 +16,7 @@ Unsuccessful registration
 
 <b>Why Upload the File to the Servlet if It's Saved in the Database?</b>
 
-While the file name (or a reference to the file) is saved in the database, the actual file content is not saved in the database itself (unless you're explicitly storing file data in a BLOB field, which doesn't seem to be the case here). Here’s why uploading the file to the server is necessary:
+While the file name (or a reference to the file) is saved in the database, the actual file content is not saved in the database itself (unless you're explicitly storing file data in a BLOB field). Here’s why uploading the file to the server is necessary:
 
 File path storage in the database: Typically, only the file name or file path is stored in the database, not the actual file content. The path helps to reference where the file is located on the server.
 
