@@ -81,6 +81,7 @@
                             console.log("Inside success Ajax method");
                             $(".loader").hide();
                             $(".form").show();
+                            $('#success-msg').removeClass('green-text red-text');
                             if(data.trim().includes('success')){
                                 $('#success-msg').html("Successfully registered");
                                 $('#success-msg').addClass('green-text');
